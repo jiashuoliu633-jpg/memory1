@@ -147,13 +147,15 @@
             &mdash; 谨以此文，纪念姥爷 &mdash;
         </div>
     </div>
-<audio id="myAudio" loop>
+<audio id="myAudio" loop preload="auto">
     <source src="bgm.mp3" type="audio/mpeg">
     您的浏览器不支持播放音频。
 </audio>
 
 <div style="position: fixed; bottom: 20px; right: 20px; z-index: 999;">
-    <button onclick="toggleMusic()" id="musicBtn">🎵 播放音乐</button>
+    <button onclick="toggleMusic()" id="musicBtn" style="padding: 10px 20px; border-radius: 20px; cursor: pointer;">
+        🎵 播放音乐
+    </button>
 </div>
 
 <script>
@@ -162,8 +164,13 @@
 
     function toggleMusic() {
         if (audio.paused) {
-            audio.play();
-            btn.innerHTML = "⏸ 暂停音乐";
+            // play() 返回一个 Promise，我们需要捕获它可能抛出的异常
+            audio.play().then(() => {
+                btn.innerHTML = "⏸ 暂停音乐";
+            }).catch(error => {
+                console.error("播放失败:", error);
+                alert("播放失败，请稍后再试或检查文件是否加载完成。");
+            });
         } else {
             audio.pause();
             btn.innerHTML = "🎵 播放音乐";
