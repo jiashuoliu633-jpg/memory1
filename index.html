@@ -147,6 +147,29 @@
             &mdash; 谨以此文，纪念姥爷 &mdash;
         </div>
     </div>
+<audio id="myAudio" loop>
+    <source src="bgm.mp3" type="audio/mpeg">
+    您的浏览器不支持播放音频。
+</audio>
 
+<div style="position: fixed; bottom: 20px; right: 20px; z-index: 999;">
+    <button onclick="toggleMusic()" id="musicBtn">🎵 播放音乐</button>
+</div>
+
+<script>
+    var audio = document.getElementById("myAudio");
+    var btn = document.getElementById("musicBtn");
+
+    function toggleMusic() {
+        if (audio.paused) {
+            audio.play();
+            btn.innerHTML = "⏸ 暂停音乐";
+        } else {
+            audio.pause();
+            btn.innerHTML = "🎵 播放音乐";
+        }
+    }
+</script>
 </body>
 </html>
+
